@@ -49,5 +49,79 @@ namespace FullStack.API.Controllers
             //retorna uma resposta Ok(200) com a informação desse novo empregado
             return Ok(employeeRequest);
         }
+
+        //visualizar somente um empregado
+        [HttpGet]//esse método responderá uma requisição HTTP GET
+        [Route("{id:Guid}")]//define uma rota para esse método [Route("api/[controller]")] + [Route("{id:Guid}")]
+        public async Task<IActionResult> GetEmployee([FromRoute]Guid id)//FromRoute dizendo que a informação vem da URL
+        {      
+            //procura o empregado na tabela pela id e armazena as informações na variável
+            var employee = await _fullStackDbContext.Employees.FirstOrDefaultAsync(e => e.Id == id);
+
+            //se exister o id
+            if (employee != null)
+            {
+                return Ok(employee);//retorna a informação do empregado como resposta
+            }
+            else
+            {
+                return NotFound();//não retorna a informação
+            }
+                
+        }
+
+        //editar somente um empregado
+        [HttpPut]//esse método responderá uma requisição HTTP GET
+        [Route("{id:Guid}")]//define uma rota para esse método [Route("api/[controller]")] + [Route("{id:Guid}")]
+
+        //o id do parametro vem da URL e o objeto vem do Corpo de solicitação do método HTTP
+        public async Task<IActionResult> UpdateEmployee([FromRoute] Guid id,[FromBody] Employee updateEmployeeRequest )
+        {
+            var employee = await _fullStackDbContext.Employees.FindAsync(id);//encontrado o empregado na tabela pelo id
+
+            if(employee != null)
+            {   
+                //atualizando as informações do achado na tabela pelo recebido no parâmetro
+                employee.Name = updateEmployeeRequest.Name;
+                employee.Email = updateEmployeeRequest.Email;
+                employee.Phone = updateEmployeeRequest.Phone;
+                employee.Salary = updateEmployeeRequest.Salary;
+                employee.Department = updateEmployeeRequest.Department;
+                // o EF automaticamente rasteia as alterações feitas na entidades vindas do banco de dados
+                //salva a alteração
+                await _fullStackDbContext.SaveChangesAsync();
+
+                //retorna um ok (200) com o employee como resposta da requisição
+                return Ok(employee);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        //esse método só é acionado com requisição do metodo http delete
+        [HttpDelete]
+        [Route("{id:Guid}")]//define uma rota para esse método [Route("api/[controller]")] + [Route("{id:Guid}")]
+        //o id do parametro vem da URL
+        public async Task<IActionResult> DeleteEmployee([FromRoute] Guid id)//indica que esse id vem do caminho da rota(URL)
+        {   
+            //procura na tabela o empregado referente ao id do parametro
+            var employee = await _fullStackDbContext.Employees.FindAsync(id);
+
+            if(employee != null)
+            {   
+                //remove esse empregado da tabela
+                _fullStackDbContext.Employees.Remove(employee);
+                //salva a mudança
+                await _fullStackDbContext.SaveChangesAsync();
+                //retorna como resposta esse empregado deletado
+                return Ok(employee);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }

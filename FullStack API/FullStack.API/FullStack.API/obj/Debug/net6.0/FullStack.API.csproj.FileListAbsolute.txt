@@ -64,3 +64,4 @@ C:\Users\Guga_Pc\Desktop\projetos-git\crud-employees-angular14-dotnet6-sqlserve\
 C:\Users\Guga_Pc\Desktop\projetos-git\crud-employees-angular14-dotnet6-sqlserve\FullStack API\FullStack.API\FullStack.API\obj\Debug\net6.0\FullStack.API.pdb
 C:\Users\Guga_Pc\Desktop\projetos-git\crud-employees-angular14-dotnet6-sqlserve\FullStack API\FullStack.API\FullStack.API\obj\Debug\net6.0\FullStack.API.genruntimeconfig.cache
 C:\Users\Guga_Pc\Desktop\projetos-git\crud-employees-angular14-dotnet6-sqlserve\FullStack API\FullStack.API\FullStack.API\obj\Debug\net6.0\ref\FullStack.API.dll
+C:\Users\Guga_Pc\Desktop\projetos-git\crud-employees-angular14-dotnet6-sqlserve\FullStack API\FullStack.API\FullStack.API\obj\Debug\net6.0\FullStack.API.sourcelink.json
